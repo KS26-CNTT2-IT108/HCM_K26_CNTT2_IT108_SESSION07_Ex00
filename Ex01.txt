@@ -1,0 +1,30 @@
+SESSION07
+Bài 1 : Kiểm tra File Log Máy chủ Dung Lượng Lớn
+
+Tên lớp: HCM K26 CNTT2
+Môn học: Nhập môn công nghệ thông tin
+Họ và tên: LƯƠNG THANH THƯ
+ 
+Phần 1: Phân tích.
+
++ Vì sao cat hiển thị quá nhiều dữ liệu?
+
+- Trong PowerShell, cat là alias của Get-Content.
+Lệnh này đọc và in toàn bộ 500MB ra màn hình cùng lúc, không dừng theo từng trang, nên Terminal bị đơ.
+
++ Vì sao không nên mở file 500MB bằng Notepad?
+
+- Notepad nạp toàn bộ file vào RAM, nên máy bị quá tải và treo (Not Responding).
+Phần 2: Hoàn thiện.
+
++ Xem toàn bộ file theo từng trang:
+
+powershell
+
+Get-Content server_log_500MB.log | more
+
++ Chỉ xem 10 dòng cuối cùng:
+
+powershell
+
+Get-Content server_log_500MB.log -Tail 10

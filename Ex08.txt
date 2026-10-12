@@ -1,0 +1,32 @@
+SESSION07
+Bài 8: Debug lỗi ghi đè dữ liệu do Redirection
+
+Tên lớp: HCM K26 CNTT2
+Môn học: Nhập môn công nghệ thông tin
+Họ và tên: LƯƠNG THANH THƯ
+ 
+
+Phần 1: Phân tích lỗi
+
++ Cả 3 dòng đều dùng Out-File weekly_errors.txt mà không có -Append, nên mỗi dòng đều ghi đè (xóa sạch) nội dung file trước đó.
++ Dòng 1 là nguyên nhân chính làm mất lịch sử: mỗi lần script chạy, nó xóa toàn bộ dữ liệu của các giờ trước.
++ Dòng 2 và 3 tiếp tục ghi đè, xóa luôn những gì dòng trước vừa ghi.
+
+Điều còn sót lại trong weekly_errors.txt sau mỗi lần chạy:
+Chỉ còn đúng 1 dòng cuối: [ngày giờ] --- Ket thuc quet ---.
+
+Phần 2: Sửa lỗi và kiểm thử.
+
+powershell
+
+"[$(Get-Date)] --- Bat dau quet ---" | Out-File -Append weekly_errors.txt
+Select-String -Path app.log -Pattern "error" | Out-File -Append weekly_errors.txt
+"[$(Get-Date)] --- Ket thuc quet ---" | Out-File -Append weekly_errors.txt
+
+So sánh:
+
+	                          Out-File	                         Out-File -Append / Add-Content
+Cách ghi	                   Ghi đè	                                Ghi nối
+Dữ liệu cũ	                   Bị xóa sạch                               	Được giữ nguyên
+Dùng khi	                   Tạo file mới, bắt đầu sạch	                Cộng dồn, lưu lịch sử
+

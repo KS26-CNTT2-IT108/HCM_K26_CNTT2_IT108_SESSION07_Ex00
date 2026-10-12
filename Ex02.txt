@@ -1,0 +1,29 @@
+SESSION07
+Bài 2 : Phân tích Lỗi 404 từ File Log Máy chủ
+
+Tên lớp: HCM K26 CNTT2
+Môn học: Nhập môn công nghệ thông tin
+Họ và tên: LƯƠNG THANH THƯ
+
+  Phần 1: Phân tích
+
++ Chỉ rõ sai lầm của An: phân biệt Get-ChildItem và Select-String
+
++ Get-ChildItem dùng để tìm vị trí file: liệt kê file, thư mục và lọc theo tên file.
+
++ Lệnh Get-ChildItem -Filter "*404*" của An chỉ tìm file có tên chứa “404”, không đọc nội dung bên trong file, nên kết quả trống.
+
++ Select-String dùng để tìm nội dung trong file: đọc từng dòng và in ra các dòng chứa chữ cần tìm.
+
++ An cần tìm chữ nằm bên trong file log, nên phải dùng Select-String.
+
+  Phần 2: Sửa lỗi
+
+Lọc các dòng chứa chữ “ERROR” từ file access.log, kèm số dòng:
+
+powershell
+
+Select-String -Path access.log -Pattern "ERROR"
+
++ Select-String mặc định hiển thị kèm số dòng theo dạng access.log:15:nội dung dòng, nên kỹ sư dễ tra cứu.
+
